@@ -334,7 +334,7 @@ abstract class _RxImpl<T> extends GetListenable<T> with RxObjectMixin<T> {
 
 `_RxImpl` 是抽象类，不能直接实例化。所有具体的 Rx 类型都继承自 `_RxImpl`：
 
-### Rx<T> - 通用响应式类型
+### `Rx<T>` - 通用响应式类型
 
 ```dart 284:295:lib/get_rx/src/rx_types/rx_core/rx_impl.dart
 class Rx<T> extends _RxImpl<T> {
@@ -353,7 +353,7 @@ class Rx<T> extends _RxImpl<T> {
 
 `Rx<T>` 是用于自定义类型的通用响应式类，重写了 `toJson()` 方法，尝试调用值的 `toJson()` 方法。
 
-### Rxn<T> - 可空响应式类型
+### `Rxn<T>` - 可空响应式类型
 
 ```dart 297:308:lib/get_rx/src/rx_types/rx_core/rx_impl.dart
 class Rxn<T> extends Rx<T?> {
