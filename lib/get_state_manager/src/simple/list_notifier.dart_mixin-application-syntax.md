@@ -34,7 +34,7 @@ class NewType extends ExistingClass with MixinName {}
 
 在 `list_notifier.dart` 文件中，我们可以看到以下代码：
 
-```15:19:lib/get_state_manager/src/simple/list_notifier.dart
+```dart 15:19:lib/get_state_manager/src/simple/list_notifier.dart
 /// A Notifier with single listeners
 class ListNotifierSingle = ListNotifier with ListNotifierSingleMixin;
 
@@ -74,7 +74,7 @@ class ListNotifierGroup = ListNotifier with ListNotifierGroupMixin;
 
 为了更好地理解这些类型，我们来看一下基类的定义：
 
-```12:13:lib/get_state_manager/src/simple/list_notifier.dart
+```dart 12:13:lib/get_state_manager/src/simple/list_notifier.dart
 class ListNotifier extends Listenable
     with ListNotifierSingleMixin, ListNotifierGroupMixin {}
 ```
