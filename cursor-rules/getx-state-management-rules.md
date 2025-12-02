@@ -1,3 +1,7 @@
+---
+description: Use when working with GetX state management, reactive variables (.obs), GetX/Obx widgets, GetBuilder, GetxController lifecycle, StateMixin, or workers
+---
+
 # GetX State Management Rules
 
 ## Overview

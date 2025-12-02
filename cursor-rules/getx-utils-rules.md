@@ -1,3 +1,7 @@
+---
+description: Use when working with GetX utilities, GetUtils validation, context extensions, string/number extensions, platform detection, internationalization, or theme management
+---
+
 # GetX Utils Rules
 
 ## Overview

@@ -1,3 +1,7 @@
+---
+description: Use when working with GetX navigation, routes, Get.to/Get.toNamed, route middleware, context-free dialogs/snackbars, or route transitions
+---
+
 # GetX Route Management Rules
 
 ## Overview

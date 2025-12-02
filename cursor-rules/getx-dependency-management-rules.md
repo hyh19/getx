@@ -1,3 +1,7 @@
+---
+description: Use when working with GetX dependency injection, Get.put/lazyPut/putAsync/create, Bindings, SmartManagement, or dependency lifecycle management
+---
+
 # GetX Dependency Management Rules
 
 ## Overview
