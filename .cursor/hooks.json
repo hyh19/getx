@@ -1,9 +1,0 @@
-{
-  "hooks": {
-    "afterFileEdit": [
-      {
-        "command": "/Volumes/SANDISK/getx/remove_dot_underscore_files.sh"
-      }
-    ]
-  }
-}
