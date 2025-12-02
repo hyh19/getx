@@ -139,6 +139,7 @@ context.mediaQueryViewInsets; // EdgeInsets view insets
 context.devicePixelRatio; // Device pixel ratio
 context.textScaleFactor; // Text scale factor
 context.orientation; // Orientation (portrait/landscape)
+context.mediaQueryShortestSide; // Shortest side of the screen
 ```
 
 **Reference:** `lib/get_utils/src/extensions/context_extensions.dart:69`
@@ -155,12 +156,23 @@ context.isPortrait; // Check if portrait
 ### Device Type Detection
 
 ```dart
+// Based on shortest side
 context.isPhone; // Shortest side < 600
 context.isSmallTablet; // Shortest side >= 600
 context.isLargeTablet; // Shortest side >= 720
 context.isTablet; // isSmallTablet || isLargeTablet
-context.isDesktop; // Width <= 1200
+context.isDesktop; // Width <= 1200 (same as isDesktopOrLess)
 context.showNavbar; // Width > 800
+
+// Width-based checks
+context.isPhoneOrLess; // Width <= 600
+context.isPhoneOrWider; // Width >= 600
+context.isSmallTabletOrLess; // Width <= 600
+context.isSmallTabletOrWider; // Width >= 600
+context.isLargeTabletOrLess; // Width <= 720
+context.isLargeTabletOrWider; // Width >= 720
+context.isDesktopOrLess; // Width <= 1200
+context.isDesktopOrWider; // Width >= 1200
 ```
 
 **Reference:** `lib/get_utils/src/extensions/context_extensions.dart:108`
@@ -355,6 +367,81 @@ GetPlatform.isDesktop; // isMacOS || isWindows || isLinux
 ```
 
 **Reference:** `lib/get_utils/src/platform/platform.dart`
+
+## Event Loop Extensions
+
+Control when code executes in the event loop for better performance and UI updates.
+
+### Delayed Execution (toEnd)
+
+Execute code at the end of the current event loop cycle.
+
+```dart
+// Basic usage
+await Get.toEnd(() {
+  print('Executed at end of event loop');
+  return 42;
+});
+
+// Async computation
+final result = await Get.toEnd(() async {
+  await Future.delayed(100.milliseconds);
+  return 'Async result';
+});
+```
+
+**Use cases:**
+
+- Delay UI updates until after current build completes
+- Ensure operations happen after synchronous code finishes
+- Avoid executing during widget build phase
+
+**Reference:** `lib/get_utils/src/extensions/event_loop_extensions.dart:6`
+
+### ASAP Execution (asap)
+
+Execute code as soon as possible, optionally with a condition.
+
+```dart
+// Basic usage (delays to end of event loop)
+await Get.asap(() {
+  print('Executed ASAP');
+  return 'result';
+});
+
+// With condition (executes immediately if condition is true)
+await Get.asap(
+  () {
+    print('Executed immediately');
+    return 'result';
+  },
+  condition: () => shouldExecuteNow,
+);
+```
+
+**Use cases:**
+
+- Execute immediately when condition is met
+- Otherwise delay to end of event loop
+- Useful for conditional immediate execution
+
+**Reference:** `lib/get_utils/src/extensions/event_loop_extensions.dart:12`
+
+### Example: UI Update Delay
+
+```dart
+class MyWidget extends StatelessWidget {
+  void updateStatus() async {
+    // Delay UI update to end of event loop
+    await Get.toEnd(() {
+      // Safe to update state here
+      setState(() {
+        // Update UI
+      });
+    });
+  }
+}
+```
 
 ## Global Get Utilities
 
