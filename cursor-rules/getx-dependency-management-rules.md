@@ -220,30 +220,26 @@ Bindings integrate routes, state management, and dependency injection. They auto
 
 ### Bindings Class
 
-Create a class that extends `Binding`:
+Create a class that implements `Bindings`:
 
 ```dart
-class HomeBinding extends Binding {
+class HomeBinding implements Bindings {
   @override
-  List<Bind> dependencies() {
-    return [
-      Bind.lazyPut<HomeController>(() => HomeController()),
-      Bind.put<Service>(Api()),
-    ];
+  void dependencies() {
+    Get.lazyPut<HomeController>(() => HomeController());
+    Get.put<Service>(Api());
   }
 }
 
-class DetailsBinding extends Binding {
+class DetailsBinding implements Bindings {
   @override
-  List<Bind> dependencies() {
-    return [
-      Bind.lazyPut<DetailsController>(() => DetailsController()),
-    ];
+  void dependencies() {
+    Get.lazyPut<DetailsController>(() => DetailsController());
   }
 }
 ```
 
-**Reference:** `lib/get_state_manager/src/simple/get_state.dart:632`
+**Reference:** `lib/get_instance/src/bindings_interface.dart`
 
 ### Using Bindings with Named Routes
 
@@ -464,12 +460,10 @@ print(info.isRegistered); // bool
 When using GetX State Manager, Bindings make it easier to connect views to controllers:
 
 ```dart
-class HomeBinding extends Binding {
+class HomeBinding implements Bindings {
   @override
-  List<Bind> dependencies() {
-    return [
-      Bind.lazyPut<HomeController>(() => HomeController()),
-    ];
+  void dependencies() {
+    Get.lazyPut<HomeController>(() => HomeController());
   }
 }
 
@@ -489,4 +483,4 @@ class HomeView extends GetView<HomeController> {
 }
 ```
 
-**Reference:** `lib/get_state_manager/src/simple/get_state.dart:632`
+**Reference:** `lib/get_instance/src/bindings_interface.dart`
