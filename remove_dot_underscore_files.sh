@@ -21,25 +21,13 @@ fi
 
 # 统计文件数量
 FILE_COUNT=$(echo "$FILES" | wc -l | tr -d ' ')
-echo "找到 $FILE_COUNT 个以 ._ 开头的文件："
+echo "找到 $FILE_COUNT 个以 ._ 开头的文件"
 echo "----------------------------------------"
 echo "$FILES"
 echo "----------------------------------------"
 echo ""
 
-# 要求用户确认
-read -p "是否要删除这些文件？(y/yes 确认，其他键取消): " CONFIRM
-
-# 转换为小写进行比较
-CONFIRM_LOWER=$(echo "$CONFIRM" | tr '[:upper:]' '[:lower:]')
-
-if [ "$CONFIRM_LOWER" != "y" ] && [ "$CONFIRM_LOWER" != "yes" ]; then
-    echo "操作已取消。"
-    exit 0
-fi
-
 # 执行删除操作
-echo ""
 echo "正在删除文件..."
 DELETED_COUNT=0
 FAILED_COUNT=0
