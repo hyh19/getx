@@ -1,5 +1,5 @@
 ---
-description: Use when working with GetX utilities, GetUtils validation, context extensions, string/number extensions, platform detection, internationalization, or theme management
+description: Use when working with GetX utilities, GetUtils validation, context extensions, string/number extensions, or platform detection
 ---
 
 # GetX Utils Rules
@@ -14,8 +14,6 @@ GetX provides a comprehensive set of utility classes, extensions, and helpers th
 - Context extensions for responsive design and media queries
 - String, number, and duration extensions for cleaner code
 - Platform detection for cross-platform development
-- Internationalization support
-- Theme management
 
 ## GetUtils
 
@@ -181,17 +179,6 @@ context.responsiveValue<T>(
 ```
 
 **Reference:** `lib/get_utils/src/extensions/context_extensions.dart:146`
-
-### Theme Access
-
-```dart
-context.theme; // ThemeData
-context.isDarkMode; // Check if dark theme
-context.iconColor; // Icon theme color
-context.textTheme; // TextTheme
-```
-
-**Reference:** `lib/get_utils/src/extensions/context_extensions.dart:57`
 
 ## String Extensions
 
@@ -369,58 +356,6 @@ GetPlatform.isDesktop; // isMacOS || isWindows || isLinux
 
 **Reference:** `lib/get_utils/src/platform/platform.dart`
 
-## Internationalization
-
-```dart
-// Create translations
-class Messages extends Translations {
-  @override
-  Map<String, Map<String, String>> get keys => {
-    'en_US': {'hello': 'Hello World'},
-    'de_DE': {'hello': 'Hallo Welt'},
-  };
-}
-
-// Usage
-Text('hello'.tr); // Auto-translated
-Text('logged_in'.trParams({'name': 'John', 'email': 'john@example.com'}));
-Text('singularKey'.trPlural('pluralKey', products.length));
-
-// Configuration
-GetMaterialApp(translations: Messages(), locale: Locale('en', 'US'), fallbackLocale: Locale('en', 'UK'));
-Get.updateLocale(Locale('de', 'DE')); // Change locale
-GetMaterialApp(locale: Get.deviceLocale); // System locale
-```
-
-**Reference:** `lib/get_navigation/src/root/internacionalization.dart`
-
-## Theme Management
-
-Change theme without creating a ThemeProvider widget.
-
-### Change Theme
-
-```dart
-Get.changeTheme(ThemeData.light());
-Get.changeTheme(ThemeData.dark());
-```
-
-### Toggle Theme
-
-```dart
-Get.changeTheme(
-  Get.isDarkMode ? ThemeData.light() : ThemeData.dark(),
-);
-```
-
-### Check Current Theme
-
-```dart
-Get.isDarkMode; // Check if dark theme is active
-```
-
-**Reference:** `README.md:429`
-
 ## Global Get Utilities
 
 ```dart
@@ -458,13 +393,6 @@ Get.contextOverlay; // Context for snackbar/dialog/bottomsheet
 - Use `GetPlatform` instead of `dart:io` Platform for better web compatibility
 - Check platform before platform-specific code
 
-### Using Internationalization
-
-- Create translation classes extending `Translations`
-- Use `.tr` for simple translations
-- Use `.trParams()` for translations with variables
-- Always provide a `fallbackLocale`
-
 ### Using Widget Extensions
 
 - Use padding/margin extensions for cleaner widget code
@@ -483,8 +411,4 @@ Get.contextOverlay; // Context for snackbar/dialog/bottomsheet
 
 **❌ DON'T:** Import `dart:io` for platform checks → **✅ DO:** Use `GetPlatform` (web compatible)
 
-**❌ DON'T:** Create ThemeProvider widget → **✅ DO:** Use `Get.changeTheme()` directly
-
 **❌ DON'T:** Hardcode durations → **✅ DO:** Use extensions like `3.seconds`
-
-**❌ DON'T:** Forget fallback locale → **✅ DO:** Always provide `fallbackLocale` in GetMaterialApp
