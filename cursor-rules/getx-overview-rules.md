@@ -381,9 +381,4 @@ If you're new to GetX, follow this order:
 5. **Enhance with Internationalization** - Add multi-language support
 6. **Polish with Theme Management** - Implement theme switching
 
-## Additional Resources
-
-- [GetX Official Documentation](https://github.com/jonataslaw/getx)
-- [GetX Package on pub.dev](https://pub.dev/packages/get)
-
 For specific implementation details, refer to the individual rule files listed above.
