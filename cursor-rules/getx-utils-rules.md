@@ -1,5 +1,6 @@
 ---
 description: Use when working with GetX utilities, GetUtils validation, context extensions, string/number extensions, or platform detection
+alwaysApply: false
 ---
 
 # GetX Utils Rules

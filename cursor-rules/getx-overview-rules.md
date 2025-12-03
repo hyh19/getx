@@ -1,5 +1,6 @@
 ---
 description: Overview and navigation guide for all GetX rule files. Use this file to understand which GetX rule to reference for specific tasks and how the rules work together.
+alwaysApply: true
 ---
 
 # GetX Rules Overview

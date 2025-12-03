@@ -1,5 +1,6 @@
 ---
 description: Use when working with GetX internationalization, translations, locale management, .tr extension, trParams, trPlural, or multi-language support
+alwaysApply: false
 ---
 
 # GetX Internationalization Rules

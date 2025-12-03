@@ -1,5 +1,6 @@
 ---
 description: Use when working with GetX theme management, Get.changeTheme(), Get.isDarkMode, context theme extensions, or custom theme creation
+alwaysApply: false
 ---
 
 # GetX Theme Management Rules
