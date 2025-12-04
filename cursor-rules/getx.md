@@ -3,7 +3,7 @@ description: Overview and navigation guide for all GetX rule files. Use this fil
 alwaysApply: true
 ---
 
-# GetX Rules Overview
+# GetX
 
 ## Overview
 
