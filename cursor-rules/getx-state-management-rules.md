@@ -423,31 +423,6 @@ class TodoItem extends GetWidget<TodoController> {
 
 **Reference:** `lib/get_state_manager/src/simple/get_view.dart`
 
-## Responsive Widgets
-
-### GetResponsiveView / GetResponsiveWidget
-
-Responsive layouts based on screen size:
-
-```dart
-class HomeView extends GetResponsiveView<HomeController> {
-  HomeView() : super(alwaysUseBuilder: false);
-  
-  @override
-  Widget? desktop() => DesktopLayout();
-  @override
-  Widget? tablet() => TabletLayout();
-  @override
-  Widget? phone() => PhoneLayout();
-  @override
-  Widget? watch() => WatchLayout();
-}
-```
-
-**Screen Types:** `screen.isDesktop`, `screen.isTablet`, `screen.isPhone`, `screen.isWatch`
-
-**Reference:** `lib/get_state_manager/src/simple/get_responsive.dart`
-
 ## Mixing State Managers
 
 You can mix both approaches in the same controller:

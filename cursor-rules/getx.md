@@ -7,7 +7,7 @@ alwaysApply: true
 
 ## Overview
 
-This file serves as an index and navigation guide for all GetX-related cursor rules. GetX is a powerful Flutter framework that provides state management, dependency injection, route management, internationalization, theme management, and utilities in a simple, performant package.
+This file serves as an index and navigation guide for all GetX-related cursor rules. GetX is a powerful Flutter framework that provides state management, dependency injection, route management, internationalization, theme management, responsive layouts, and utilities in a simple, performant package.
 
 **Purpose of This File:**
 
@@ -18,7 +18,7 @@ This file serves as an index and navigation guide for all GetX-related cursor ru
 
 ## GetX Rule Files
 
-The GetX framework is organized into 6 specialized rule files, each covering a specific aspect of the framework:
+The GetX framework is organized into 7 specialized rule files, each covering a specific aspect of the framework:
 
 ### 1. Dependency Management
 
@@ -120,6 +120,23 @@ The GetX framework is organized into 6 specialized rule files, each covering a s
 
 **Reference:** Use this rule when you need validation, responsive design helpers, or utility functions.
 
+### 7. Responsive Layout
+
+**File:** `getx-responsive-layout-rules.mdc`
+
+**When to Use:** Working with GetX responsive layouts, `GetResponsiveView`, `GetResponsiveWidget`, `ResponsiveScreen`, screen breakpoints, or adaptive UI design.
+
+**Key Topics:**
+
+- `GetResponsiveView` and `GetResponsiveWidget` for adaptive layouts
+- Building patterns (builder method vs specific methods)
+- `ResponsiveScreen` for screen information and utilities
+- `ResponsiveScreenSettings` for custom breakpoints
+- Screen type detection (desktop, tablet, phone, watch)
+- Fallback behavior and responsive value selection
+
+**Reference:** Use this rule when building responsive layouts that adapt to different screen sizes (desktop, tablet, phone, watch).
+
 ## Quick Decision Guide
 
 ### What are you trying to do?
@@ -138,6 +155,9 @@ The GetX framework is organized into 6 specialized rule files, each covering a s
 
 **Implement theme switching or dark mode?**
 → Use `getx-theme-rules.mdc`
+
+**Build responsive layouts for different screen sizes?**
+→ Use `getx-responsive-layout-rules.mdc`
 
 **Need validation, responsive helpers, or utilities?**
 → Use `getx-utils-rules.mdc`
@@ -203,6 +223,7 @@ ElevatedButton(
 
 1. `getx-utils-rules.mdc` - Validation and responsive helpers
 2. `getx-state-management-rules.mdc` - Form state
+3. `getx-responsive-layout-rules.mdc` - Responsive layout (optional, for complex layouts)
 
 **Example:**
 
@@ -216,13 +237,75 @@ class FormController extends GetxController {
   }
 }
 
-// In widget
+// In widget (using context extensions from utils)
 Container(
   width: context.isPhone ? context.width : 400,
   child: TextField(
     onChanged: (value) => controller.email.value = value,
   ),
 )
+
+// Or using GetResponsiveView for complex responsive layouts
+class FormView extends GetResponsiveView<FormController> {
+  FormView({super.key}) : super(alwaysUseBuilder: false);
+  
+  @override
+  Widget? desktop() => DesktopFormLayout();
+  
+  @override
+  Widget? phone() => PhoneFormLayout();
+}
+```
+
+### Scenario 4: Responsive Layout with State Management
+
+**Required Rules:**
+
+1. `getx-responsive-layout-rules.mdc` - Responsive layout widgets
+2. `getx-state-management-rules.mdc` - Controller with state
+3. `getx-dependency-management-rules.mdc` - Binding for controller
+
+**Example:**
+
+```dart
+// 1. Create controller (State Management)
+class HomeController extends GetxController {
+  final items = <String>[].obs;
+}
+
+// 2. Create binding (Dependency Management)
+class HomeBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<HomeController>(() => HomeController());
+  }
+}
+
+// 3. Create responsive view (Responsive Layout)
+class HomeView extends GetResponsiveView<HomeController> {
+  HomeView({super.key}) : super(alwaysUseBuilder: false);
+  
+  @override
+  Widget? desktop() {
+    return DesktopLayout(
+      items: controller.items,
+    );
+  }
+  
+  @override
+  Widget? tablet() {
+    return TabletLayout(
+      items: controller.items,
+    );
+  }
+  
+  @override
+  Widget? phone() {
+    return PhoneLayout(
+      items: controller.items,
+    );
+  }
+}
 ```
 
 ## How Rules Work Together
@@ -236,7 +319,8 @@ Most GetX applications combine multiple features:
 3. **Controllers** manage state for each route
 4. **Translations** provide multi-language support
 5. **Themes** control app appearance
-6. **Utils** provide validation and helpers
+6. **Responsive Layouts** adapt UI to different screen sizes
+7. **Utils** provide validation and helpers
 
 ### Integration Example
 
@@ -369,6 +453,9 @@ class SettingsView extends GetView<SettingsController> {
 | Validate email | `getx-utils-rules.mdc` | `GetUtils.isEmail()` |
 | Responsive width | `getx-utils-rules.mdc` | `context.width` |
 | Platform check | `getx-utils-rules.mdc` | `GetPlatform.isAndroid` |
+| Build responsive view | `getx-responsive-layout-rules.mdc` | `GetResponsiveView` |
+| Custom breakpoints | `getx-responsive-layout-rules.mdc` | `ResponsiveScreenSettings` |
+| Screen type check | `getx-responsive-layout-rules.mdc` | `screen.isDesktop`, `screen.isTablet` |
 
 ## Getting Started
 
@@ -378,7 +465,8 @@ If you're new to GetX, follow this order:
 2. **Add Dependency Management** - Create Bindings for your routes
 3. **Implement State Management** - Create controllers for your pages
 4. **Add Utilities** - Use validation and responsive helpers as needed
-5. **Enhance with Internationalization** - Add multi-language support
-6. **Polish with Theme Management** - Implement theme switching
+5. **Enhance with Responsive Layouts** - Build adaptive UIs for different screen sizes
+6. **Enhance with Internationalization** - Add multi-language support
+7. **Polish with Theme Management** - Implement theme switching
 
 For specific implementation details, refer to the individual rule files listed above.
