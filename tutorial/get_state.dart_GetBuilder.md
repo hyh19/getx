@@ -137,7 +137,7 @@ typedef GetControllerBuilder<T extends GetLifeCycleMixin> = Widget Function(
 - **默认值**：`null`
 - **说明**：用于过滤更新条件的函数。只有当过滤结果发生变化时，widget 才会更新
 
-### 生命周期回调
+### 生命周期回调参数
 
 - **`initState`**：在 `BindElement` 初始化时调用
 - **`dispose`**：在 `BindElement` 销毁时调用
@@ -589,7 +589,7 @@ GetBuilder<AppController>(
 )
 ```
 
-### 生命周期回调
+### 生命周期回调示例
 
 ```dart
 GetBuilder<MyController>(
@@ -799,4 +799,3 @@ void onReady() {
 - [Obx 详解](lib/get_state_manager/src/rx_flutter/rx_obx_widget.dart_obx.md)
 - [Flutter InheritedWidget 文档](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html)
 - [GetX 状态管理文档](https://github.com/jonataslaw/getx/blob/master/README.md#state-management)
-
