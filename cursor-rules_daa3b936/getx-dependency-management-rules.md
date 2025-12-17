@@ -215,34 +215,38 @@ Get.lazyPut<Controller>(() => Controller(), fenix: true);
 
 **Reference:** `lib/get_instance/src/extension_instance.dart`
 
-## Bindings
+## Binding
 
-Bindings integrate routes, state management, and dependency injection. They automatically dispose dependencies when routes are removed.
+Binding integrates routes, state management, and dependency injection. It automatically disposes dependencies when routes are removed.
 
-### Bindings Class
+### Binding Class
 
-Create a class that implements `Bindings`:
+Create a class that extends `Binding`:
 
 ```dart
-class HomeBinding implements Bindings {
+class HomeBinding extends Binding {
   @override
-  void dependencies() {
-    Get.lazyPut<HomeController>(() => HomeController());
-    Get.put<Service>(Api());
+  List<Bind> dependencies() {
+    return [
+      Bind.lazyPut<HomeController>(() => HomeController()),
+      Bind.put<Service>(Api()),
+    ];
   }
 }
 
-class DetailsBinding implements Bindings {
+class DetailsBinding extends Binding {
   @override
-  void dependencies() {
-    Get.lazyPut<DetailsController>(() => DetailsController());
+  List<Bind> dependencies() {
+    return [
+      Bind.lazyPut<DetailsController>(() => DetailsController()),
+    ];
   }
 }
 ```
 
-**Reference:** `lib/get_instance/src/bindings_interface.dart`
+**Reference:** `lib/get_state_manager/src/simple/get_state.dart`
 
-### Using Bindings with Named Routes
+### Using Binding with Named Routes
 
 ```dart
 getPages: [
@@ -259,7 +263,7 @@ getPages: [
 ];
 ```
 
-### Using Bindings with Direct Navigation
+### Using Binding with Direct Navigation
 
 ```dart
 Get.to(() => HomeView(), binding: HomeBinding());
@@ -277,11 +281,12 @@ GetMaterialApp(
 );
 ```
 
-### BindingsBuilder
+### BindingsBuilder (Deprecated)
 
-Use a callback function instead of creating a class:
+**Note:** The `BindingsBuilder` class is deprecated. Use the `Binding` class instead.
 
 ```dart
+// Deprecated approach - avoid using
 getPages: [
   GetPage(
     name: '/',
@@ -292,11 +297,20 @@ getPages: [
     }),
   ),
 ];
+
+// Recommended approach - use Binding class
+class HomeBinding extends Binding {
+  @override
+  List<Bind> dependencies() {
+    return [
+      Bind.lazyPut<ControllerX>(() => ControllerX()),
+      Bind.put<Service>(Api()),
+    ];
+  }
+}
 ```
 
-**Note:** The `BindingsBuilder` class is deprecated in favor of using a function directly. Use the callback pattern shown above.
-
-**Reference:** `lib/get_instance/src/bindings_interface.dart:68`
+**Reference:** `lib/get_state_manager/src/simple/get_state.dart`
 
 ## SmartManagement
 
@@ -452,19 +466,21 @@ print(info.isRegistered); // bool
 
 **❌ DON'T:** Use `SmartManagement.keepFactory` with multiple Bindings → **✅ DO:** Use `full` or `onlyBuilder`
 
-**❌ DON'T:** Forget to use Bindings → **✅ DO:** Use Bindings for automatic cleanup
+**❌ DON'T:** Forget to use Binding → **✅ DO:** Use Binding for automatic cleanup
 
 **❌ DON'T:** Use `permanent: true` for route-specific controllers → **✅ DO:** Use `permanent: true` only for app-wide services
 
 ## Integration with State Management
 
-When using GetX State Manager, Bindings make it easier to connect views to controllers:
+When using GetX State Manager, Binding makes it easier to connect views to controllers:
 
 ```dart
-class HomeBinding implements Bindings {
+class HomeBinding extends Binding {
   @override
-  void dependencies() {
-    Get.lazyPut<HomeController>(() => HomeController());
+  List<Bind> dependencies() {
+    return [
+      Bind.lazyPut<HomeController>(() => HomeController()),
+    ];
   }
 }
 
